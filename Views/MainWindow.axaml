@@ -1,0 +1,112 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SmartHome.ViewModels"
+        x:Class="SmartHome.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="SmartHome"
+        Icon="/Assets/avalonia-logo.ico">
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <TabControl HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+        <!-- Zakładka Oświetlenie -->
+        <TabItem Header="Oświetlenie">
+			<StackPanel Spacing="12" Margin="16">
+				<ItemsControl ItemsSource="{Binding Bulbs}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Border BorderBrush="Gray" BorderThickness="1" CornerRadius="6" Padding="6" Margin="0 0 0 6">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="2*"/>
+										<ColumnDefinition Width="2*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+									<TextBlock Text="{Binding Name}" FontSize="14" Grid.Column="0" VerticalAlignment="Center"/>
+									<TextBlock Text="{Binding Status}" FontSize="12" Grid.Column="1" VerticalAlignment="Center" Margin="24,0,0,0"/>
+									<Button Content="Przełącz" Command="{Binding ToggleCommand}" Width="70" Height="28" Grid.Column="2" Margin="24,0,0,0"/>
+								</Grid>
+							</Border>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</StackPanel>
+        </TabItem>
+        <!-- Zakładka Rolety -->
+        <TabItem Header="Rolety">
+            <StackPanel Spacing="12" Margin="16">
+                <ItemsControl ItemsSource="{Binding Blinds}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="6" Padding="6" Margin="0 0 0 6">
+                                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}" FontSize="14" Width="120"/>
+                                    <TextBlock Text="{Binding Status}" FontSize="12" Width="100"/>
+                                    <Slider Minimum="0" Maximum="100" Value="{Binding Level, Mode=TwoWay}" Width="70" Margin="0,0,6,0" Height="18"/>
+                                    <Button Content="Przełącz" Command="{Binding ToggleCommand}" Width="70" Height="28"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </TabItem>
+        <!-- Zakładka Ogrodzenie -->
+        <TabItem Header="Ogrodzenie">
+            <StackPanel Spacing="12" Margin="16">
+                <ItemsControl ItemsSource="{Binding Gates}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="6" Padding="6" Margin="0 0 0 6">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Name}" FontSize="14" Grid.Column="0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Status}" FontSize="12" Grid.Column="1" VerticalAlignment="Center" Margin="24,0,0,0"/>
+                                    <Button Content="Otwórz" Command="{Binding OpenCommand}" Width="60" Height="28" Grid.Column="2" Margin="24,0,0,0"/>
+                                    <Button Content="Zamknij" Command="{Binding CloseCommand}" Width="70" Height="28" Grid.Column="3" Margin="16,0,0,0"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </TabItem>
+        <!-- Zakładka Kamery -->
+        <TabItem Header="Kamery">
+            <StackPanel Spacing="12" Margin="16">
+                <TextBlock Text="Podgląd z kamer " FontSize="16" FontWeight="Bold"/>
+                <ItemsControl>
+                    <ItemsControl.Items>
+                        <TextBlock Text="Kamera salon" FontSize="14"/>
+                        <TextBlock Text="Kamera kuchnia" FontSize="14"/>
+                        <TextBlock Text="Kamera przedpokój" FontSize="14"/>
+                        <TextBlock Text="Kamera ogród" FontSize="14"/>
+                    </ItemsControl.Items>
+                </ItemsControl>
+            </StackPanel>
+        </TabItem>
+        <!-- Zakładka Tryby -->
+        <TabItem Header="Tryby">
+            <StackPanel Spacing="16" Margin="16">
+                <TextBlock Text="Tryby SmartHome" FontSize="16" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+                    <Button Content="Wychodzę z domu" Command="{Binding LeaveHomeCommand}" Width="180" Height="36"/>
+                    <Button Content="Wracam do domu" Command="{Binding ComeHomeCommand}" Width="180" Height="36"/>
+                    <TextBlock Text="Status: " FontSize="14" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentMode}" FontSize="14" FontWeight="Bold" Foreground="DarkGreen" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock Text="Symulacja obecności:" FontSize="14"/>
+                    <ToggleSwitch IsChecked="{Binding IsPresenceSimOn, Mode=TwoWay}"/>
+                </StackPanel>
+                <TextBlock Text="(Symulacja losowo włącza światła w salonie i kuchni wieczorem)" FontSize="12"/>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</Window>
