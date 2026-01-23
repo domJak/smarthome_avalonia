@@ -8,8 +8,8 @@ Aplikacja prezentuje stan urządzeń domowych oraz umożliwia ich logiczne zarz�
 Projekt został wykonany z wykorzystaniem architektury MVVM oraz frameworka Avalonia UI.
 
 Autorzy:
-- Domin Jakubiec
-- Przemysław Fuchs
+- Domin Jakubiec 62179
+- Przemysław Fuchs 61409
 
 ---
 
