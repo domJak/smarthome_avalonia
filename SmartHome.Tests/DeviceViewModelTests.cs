@@ -1,21 +1,19 @@
 using Xunit;
 using SmartHome.ViewModels;
 
-public class DeviceViewModelTests
+public class BulbViewModelTests
 {
     [Fact]
-    public void ToggleDevice_ShouldChangeState()
+    public void Toggle_ShouldChangeBulbState()
     {
         // Arrange
-        var vm = new DeviceViewModel
-        {
-            IsOn = false
-        };
+        var bulb = new BulbViewModel("test bulb");
+        var initialState = bulb.IsOn;
 
         // Act
-        vm.ToggleDevice();
+        bulb.ToggleCommand.Execute(null);
 
         // Assert
-        Assert.True(vm.IsOn);
+        Assert.NotEqual(initialState, bulb.IsOn);
     }
 }
